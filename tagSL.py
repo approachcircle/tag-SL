@@ -18,23 +18,28 @@ Copyright 2021 approachcircle
 '''
 import os, time, traceback
 try:
+
     class SessionLockedException(Exception):
         pass
-    class get:
+    
+    class display:
         def sessionState(self): # get the session state
             os.system("if exist SESSION.LOCK (echo the session is currently locked) else (echo the session is currently unlocked)")
 
     class do:
         def lockSession(self):
-            pass
+            os.system("echo > SESSION.LOCK")
+            print("session locked")
 
         def unlockSession(self):
-            pass
+            os.system("del SESSION.Lock")
+            print("session unlocked")
 
-    class raiseif:
         def sessionExists(self):
-            raise SessionLockedException("Session has already been locked. Possibly by another instance?")
+            raise SessionLockedException("session has already been locked. possibly by another instance?")
 
+    do = do()
+    display = display()
 
 except SessionLockedException:
     traceback.print_exc()
