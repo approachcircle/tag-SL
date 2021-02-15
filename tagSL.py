@@ -16,15 +16,28 @@ Copyright 2021 approachcircle
    See the License for the specific language governing permissions and
    limitations under the License.
 '''
-import os, time
-
-class get:
-    def sessionState(self):
+import os, time, traceback
+try:
+    class SessionLockedException(Exception):
         pass
+    class get:
+        def sessionState(self): # get the session state
+            os.system("if exist SESSION.LOCK (echo the session is currently locked) else (echo the session is currently unlocked)")
 
-class do:
-    def lockSession(self):
-        pass
+    class do:
+        def lockSession(self):
+            pass
 
-    def unlockSession(self):
-        pass
+        def unlockSession(self):
+            pass
+
+    class raiseif:
+        def sessionExists(self):
+            raise SessionLockedException("Session has already been locked. Possibly by another instance?")
+
+
+except SessionLockedException:
+    traceback.print_exc()
+    print()
+    print("press enter.")
+    input()
